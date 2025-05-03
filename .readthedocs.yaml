@@ -7,7 +7,12 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.10"
-
+# Required
+python:
+  install:
+    - method: pip
+      path: .
+    - requirements: docs/requirements.txt  # Or wherever your Sphinx deps are listed
 # Optional but recommended
 sphinx:
   configuration: docs/source/conf.py

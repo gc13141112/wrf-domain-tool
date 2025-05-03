@@ -1,3 +1,8 @@
+<!--  -->
+git remote set-url origin https://taken_key@github.com/gc13141112/wrf-domain-tool.git
+git pull origin master --allow-unrelated-histories
+git branch -M master
+git push -u origin master
 # wrf-domain-tool
 
 自动从多个 Shapefile 文件生成 WRF 模拟的多层嵌套 domain，并自动输出 `namelist.wps`。
