@@ -3,6 +3,9 @@
 
 Welcome to wrf-domain-tool's documentation!
 ===========================================
+.. image:: https://img.shields.io/badge/GitHub-WRFDomain-blue?logo=github
+   :target: https://github.com/gc13141112/wrf-domain-tool
+   :alt: GitHub Repository
 
 .. toctree::
    :maxdepth: 2

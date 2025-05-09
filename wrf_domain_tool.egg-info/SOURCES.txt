@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+wrf_domain_tool/__init__.py
+wrf_domain_tool/domain_generator.py
+wrf_domain_tool.egg-info/PKG-INFO
+wrf_domain_tool.egg-info/SOURCES.txt
+wrf_domain_tool.egg-info/dependency_links.txt
+wrf_domain_tool.egg-info/top_level.txt
