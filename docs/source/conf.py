@@ -47,6 +47,10 @@ napoleon_use_rtype = True
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_show_sphinx = False  # 去除“Built with Sphinx”
+html_show_copyright = False  # 不显示默认版权（我们自定义）
+templates_path = ['_templates']
+
 html_theme_options = {
     'navigation_depth': 4,
     'collapse_navigation': False,
