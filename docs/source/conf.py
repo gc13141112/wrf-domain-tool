@@ -11,8 +11,9 @@ sys.path.insert(0, os.path.abspath('../../wrf-domain-tool'))
 # -- Project information -----------------------------------------------------
 
 project = 'wrf-domain-tool'
-author = 'Your Name or Organization'
+author = '叩一人'
 release = '0.1.0'  # Update with your version
+copyright = '2023–2025, 叩一人'
 
 # -- General configuration ---------------------------------------------------
 
