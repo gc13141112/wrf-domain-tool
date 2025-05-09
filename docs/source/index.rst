@@ -19,10 +19,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-Author and License
-==================
-
-Author: 叩一人 
-Copyright © 2023–2025 叩一人
-License: MIT License
