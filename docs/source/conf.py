@@ -24,7 +24,6 @@ extensions = [
     'sphinx_autodoc_typehints',      # Use type hints in function signatures
 ]
 
-templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # Autodoc settings
