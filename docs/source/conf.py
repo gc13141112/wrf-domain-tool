@@ -49,6 +49,11 @@ html_show_sphinx = False  # 去除“Built with Sphinx”
 html_show_copyright = False  # 不显示默认版权（我们自定义）
 templates_path = ['_templates']
 html_static_path = ['_static']
+from datetime import datetime
+
+html_context = {
+    'current_year': datetime.now().year,
+}
 # html_theme_options = {
 #     'navigation_depth': 4,
 #     'collapse_navigation': False,

@@ -1,7 +1,16 @@
 {% extends "!layout.html" %}
 
 {% block footer %}
-  <div class="footer" style="padding: 1em; font-size: 0.9em; text-align: center;">
-    <p>© 2023–2025 叩一人 · Licensed under the MIT License</p>
+  {{ super() }}  {# 保留原主题 footer 的结构 #}
+
+  <div style="
+       margin-top: 1em;
+       padding: 1em;
+       font-size: 0.9em;
+       text-align: center;
+       color: #666;
+    ">
+    © 2023–{{ current_year }} 叩一人 · 
+    <a href="https://opensource.org/licenses/MIT" target="_blank" style="color: #666;">MIT License</a>
   </div>
 {% endblock %}
