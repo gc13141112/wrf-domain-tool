@@ -12,6 +12,7 @@
 ## 安装
 
 建议使用 Conda 创建独立环境并通过源代码安装：
+https://blog.csdn.net/qq_36762765/article/details/134317357
 
 ```bash
 # 创建 Conda 环境
