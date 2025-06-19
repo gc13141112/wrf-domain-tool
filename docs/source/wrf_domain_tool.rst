@@ -11,7 +11,6 @@ wrf\_domain\_tool.domain\_generator module
    :members:
    :show-inheritance:
    :undoc-members:
-   :noindex:
 
 Module contents
 ---------------
