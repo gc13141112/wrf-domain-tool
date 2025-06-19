@@ -9,9 +9,9 @@ Welcome to wrf-domain-tool's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: API Reference:
 
-   modules
+   wrf-domain-tool
 
 Indices and tables
 ==================
