@@ -6,14 +6,9 @@ Welcome to wrf-domain-tool's documentation!
 .. image:: https://img.shields.io/badge/GitHub-WRFDomain-blue?logo=github
    :target: https://github.com/gc13141112/wrf-domain-tool
    :alt: GitHub Repository
-Geographic information systems use GeoTIFF and other formats to organize and
-store gridded raster datasets such as satellite imagery and terrain models.
-Rasterio reads and writes these formats and provides a Python API based on
-Numpy N-dimensional arrays and GeoJSON.
+The WRF Domain Tool, together with a shapefile, allows us to plot the WRF domain.
 
-Here's an example program that extracts the GeoJSON shapes of a raster's valid
-data footprint.
-
+Here's an example program that plots the nest domain.
 .. code:: python
 
     import rasterio
