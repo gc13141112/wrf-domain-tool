@@ -9,7 +9,7 @@ Welcome to wrf-domain-tool's documentation!
 
 Useful Links
 ------------
-- `WRF <https://www2.mmm.ucar.edu/wrf/users/>`_
+- `WRF public site <https://www2.mmm.ucar.edu/wrf/users/>`_
 - `Wetland example <https://forum.mmm.ucar.edu/threads/temporal-changing-surface-fields-tidal-wetlands.10595/>`_
 
 
