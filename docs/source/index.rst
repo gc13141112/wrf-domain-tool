@@ -6,6 +6,9 @@ Welcome to wrf-domain-tool's documentation!
 .. image:: https://img.shields.io/badge/GitHub-WRFDomain-blue?logo=github
    :target: https://github.com/gc13141112/wrf-domain-tool
    :alt: GitHub Repository
+
+.. WRF: https://www2.mmm.ucar.edu/wrf/users/
+
 The WRF Domain Tool, together with a shapefile, allows us to plot the WRF domain.
 
 Here's an example program that plots the nest domain.
