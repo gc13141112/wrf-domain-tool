@@ -14,6 +14,7 @@ class WRFDomain:
     """
 
     def __init__(self, shapefiles: List[str], dx_base=27000, ratios=[1, 3, 3]):
+        assert len(shapefiles) == len(ratios), "Each shapefile must have a corresponding nesting ratio."
         self.shapefiles = shapefiles
         self.dx_base = dx_base
         self.ratios = ratios
@@ -23,6 +24,8 @@ class WRFDomain:
         """Load shapefiles and calculate geographic centers and extents."""
         for shp in self.shapefiles:
             gdf = gpd.read_file(shp)
+            if gdf.crs is None or not gdf.crs.is_projected:
+                gdf = gdf.to_crs("EPSG:4326")
             bounds = gdf.total_bounds  # (minx, miny, maxx, maxy)
             minx, miny, maxx, maxy = bounds
             center_lon = (minx + maxx) / 2
@@ -45,8 +48,38 @@ class WRFDomain:
             dom["e_we"] = int(dom["width_km"] * 1000 / dx) + 1
             dom["e_sn"] = int(dom["height_km"] * 1000 / dx) + 1
 
-    def write_namelist(self, i_starts: List[int], j_starts: List[int], output_path="namelist.wps"):
+    def auto_start_indices(self):
+        """Automatically compute i_parent_start and j_parent_start between nested domains."""
+        i_starts = [1]
+        j_starts = [1]
+        geoms = []
+        centers = []
+
+        for shp in self.shapefiles:
+            gdf = gpd.read_file(shp)
+            gdf = gdf.to_crs("EPSG:3857")
+            bounds = gdf.total_bounds
+            minx, miny, maxx, maxy = bounds
+            centerx = (minx + maxx) / 2
+            centery = (miny + maxy) / 2
+            centers.append((centerx, centery))
+            geoms.append((minx, miny, maxx, maxy))
+
+        for i in range(1, len(self.shapefiles)):
+            parent_minx, parent_miny, _, _ = geoms[i - 1]
+            parent_dx = self.dx_base / self.ratios[i - 1]
+            dx = parent_dx
+            i_start = int((centers[i][0] - parent_minx) / dx)
+            j_start = int((centers[i][1] - parent_miny) / dx)
+            i_starts.append(i_start)
+            j_starts.append(j_start)
+
+        return i_starts, j_starts
+
+    def write_namelist(self, output_path="namelist.wps"):
         """Write WRF namelist.wps based on domain parameters."""
+        i_starts, j_starts = self.auto_start_indices()
+
         with open(output_path, "w") as f:
             f.write("&share\n")
             f.write(f" max_dom = {len(self.domains)},\n")
