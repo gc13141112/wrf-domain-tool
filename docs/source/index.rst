@@ -7,8 +7,8 @@ Welcome to wrf-domain-tool's documentation!
    :target: https://github.com/gc13141112/wrf-domain-tool
    :alt: GitHub Repository
 
-.. WRF: https://www2.mmm.ucar.edu/wrf/users/
-.. Wetland example: https://forum.mmm.ucar.edu/threads/temporal-changing-surface-fields-tidal-wetlands.10595/
+.. _WRF: https://www2.mmm.ucar.edu/wrf/users/
+.. _Wetland example: https://forum.mmm.ucar.edu/threads/temporal-changing-surface-fields-tidal-wetlands.10595/
 
 The WRF Domain Tool, together with a shapefile, allows us to plot the WRF domain.
 
