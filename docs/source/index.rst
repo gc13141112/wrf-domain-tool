@@ -33,10 +33,10 @@ Here's an example program that plots the nest domain.
 
 Here's an example that multiple domains' namelist.
 
+- `Online WRFDomain plot <https://jiririchter.github.io/WRFDomainWizard/>`_
+
 .. code-block:: fortran
    :caption: namelist.wps 示例（包含 7 层嵌套）
-
-- `Online WRFDomain plot <https://jiririchter.github.io/WRFDomainWizard/>`_
 
    &share
    max_dom = 7,
