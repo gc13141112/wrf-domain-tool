@@ -70,14 +70,7 @@ Here's an example that multiple domains' namelist.
 .. toctree::
    :maxdepth: 2
 
-   intro
    installation
-   quickstart
-   cli
-   topics/index
-   wrf-domain-tool API Reference <api/index>
-   contributing
-   faq
 
 Indices and tables
 ==================
