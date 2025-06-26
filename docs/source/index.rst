@@ -31,6 +31,8 @@ Here's an example program that plots the nest domain.
       wrf.write_namelist("namelist.wps")
       wrf.plot_domains()
 
+Here's an example that multiple domains' namelist.
+
 .. code:: fortran
    &share
    max_dom = 7,
