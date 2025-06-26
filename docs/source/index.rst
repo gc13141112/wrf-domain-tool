@@ -65,6 +65,8 @@ Here's an example that multiple domains' namelist.
    geog_data_path ='/home/gaochao/model/software/geog/geog/'
    /
 
+.. image:: img/domain.jpg
+
 .. toctree::
    :maxdepth: 2
    :caption: API Reference:
