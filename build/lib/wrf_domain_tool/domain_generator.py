@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 from cartopy.feature import COASTLINE, BORDERS
 from matplotlib.patches import Rectangle
+import pyproj
 class WRFDomain:
     """
     A class for calculating WRF nested domains from shapefiles and generating namelist.wps.
@@ -104,47 +105,57 @@ class WRFDomain:
             f.write(" geog_data_res = " + ", ".join(["'default'"] * len(self.domains)) + ",\n")
             f.write(" geog_data_path = '/your/WPS_GEOG',\n/\n")
     def plot_domains(self):
-        """Plot WRF nested domains using Lambert Conformal projection (LCC)."""
-        # 获取参考点用于设置投影中心
-        ref_lat = self.domains[0]["center_lat"]
-        ref_lon = self.domains[0]["center_lon"]
+        """Plot domains in projected Lambert Conformal coordinates (meters)."""
+        """Plot WRF nested domains with Lambert projection, national and provincial boundaries."""
+        
+        center_lat = self.domains[0]['center_lat']
+        center_lon = self.domains[0]['center_lon']
 
-        proj = ccrs.LambertConformal(
-            central_longitude=ref_lon,
-            central_latitude=ref_lat,
+        # Lambert投影 (和WRF配置保持一致)
+        lcc_proj = ccrs.LambertConformal(
+            central_longitude=center_lon,
+            central_latitude=center_lat,
             standard_parallels=(30, 60)
         )
 
-        fig, ax = plt.subplots(figsize=(10, 8), subplot_kw={'projection': proj})
-        ax.set_title("WRF Nested Domains (Lambert Projection)")
+        fig, ax = plt.subplots(figsize=(12, 10), subplot_kw={"projection": lcc_proj})
+        ax.set_title("WRF Nested Domains with China Borders")
 
+        # 添加 cartopy 自带国界 & 海岸线
+        # ax.add_feature(cfeature.COASTLINE.with_scale('50m'), linewidth=0.8)
+        # ax.add_feature(cfeature.BORDERS.with_scale('50m'), linewidth=0.8, linestyle="--", edgecolor='gray')
+        # ax.add_feature(cfeature.LAND, facecolor="#f5f5f5")
+        # ax.add_feature(cfeature.OCEAN, facecolor="#cceeff")
+
+        # 加载中国省界数据（Aliyun GeoJSON）
+        try:
+            gdf = gpd.read_file('https://geo.datav.aliyun.com/areas_v3/bound/100000.json')
+            gdf = gdf.to_crs(lcc_proj.proj4_init)
+            gdf.plot(ax=ax, facecolor='none', edgecolor='gray', linewidth=0.6)
+
+            gdf = gpd.read_file('https://geo.datav.aliyun.com/areas_v3/bound/510000.json')
+            gdf = gdf.to_crs(lcc_proj.proj4_init)
+            gdf.plot(ax=ax, facecolor='none', edgecolor='gray', linewidth=0.6)
+        except Exception as e:
+            print(f"❌ 无法加载省界数据: {e}")
+
+        # 绘制嵌套域框
+        transformer = pyproj.Transformer.from_crs("EPSG:4326", lcc_proj.proj4_init, always_xy=True)
         for i, dom in enumerate(self.domains):
-            width_deg = dom["width_km"] / 111
-            height_deg = dom["height_km"] / 111
-            lower_left_lon = dom["center_lon"] - width_deg / 2
-            lower_left_lat = dom["center_lat"] - height_deg / 2
+            width_m = dom["width_km"] * 1000
+            height_m = dom["height_km"] * 1000
+            x_center, y_center = transformer.transform(dom["center_lon"], dom["center_lat"])
+            lower_left_x = x_center - width_m / 2
+            lower_left_y = y_center - height_m / 2
 
-            # 构建矩形四角
-            rect = Rectangle(
-                (lower_left_lon, lower_left_lat),
-                width_deg,
-                height_deg,
-                edgecolor=f"C{i}",
-                linewidth=2,
-                facecolor='none',
-                transform=ccrs.PlateCarree(),
-                label=f"Domain {i+1}"
-            )
+            rect = Rectangle((lower_left_x, lower_left_y), width_m, height_m,
+                            transform=lcc_proj,
+                            edgecolor=f"C{i}", facecolor='none', linewidth=2, label=f"Domain {i+1}")
             ax.add_patch(rect)
 
-            # 中心点
-            ax.plot(dom["center_lon"], dom["center_lat"], marker="x", color=f"C{i}",
-                    transform=ccrs.PlateCarree())
-            ax.text(dom["center_lon"], dom["center_lat"], f"D{i+1}",
-                    transform=ccrs.PlateCarree(), fontsize=12, ha="center", va="center")
-
-        ax.add_feature(COASTLINE)
-        ax.add_feature(BORDERS, linestyle=':')
+            ax.plot(dom["center_lon"], dom["center_lat"], marker="x", color=f"C{i}", transform=ccrs.PlateCarree())
+            ax.text(dom["center_lon"], dom["center_lat"], f"D{i+1}", transform=ccrs.PlateCarree(),
+                    fontsize=11, ha="center", va="center")
 
         ax.legend()
         ax.gridlines(draw_labels=True)

@@ -29,6 +29,7 @@ Here's an example program that plots the nest domain.
       wrf.load_shapefiles()
       wrf.compute_domain_params()
       wrf.write_namelist("namelist.wps")
+      wrf.plot_domains()
 
 .. toctree::
    :maxdepth: 2
