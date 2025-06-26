@@ -30,7 +30,7 @@ Here's an example program that plots the nest domain.
       wrf.compute_domain_params()
       wrf.write_namelist("namelist.wps")
       wrf.plot_domains()
-..code:: python
+.. code-block:: fortran
    &share
    max_dom = 7,
    start_date = '2024-06-01_00:00:00', '2024-06-01_00:00:00', '2024-06-01_00:00:00', '2024-06-01_00:00:00',
