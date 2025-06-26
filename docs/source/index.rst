@@ -33,7 +33,9 @@ Here's an example program that plots the nest domain.
 
 Here's an example that multiple domains' namelist.
 
-.. code:: fortran
+.. code-block:: fortran
+   :caption: namelist.wps 示例（包含 7 层嵌套）
+   
    &share
    max_dom = 7,
    start_date = '2024-06-01_00:00:00', '2024-06-01_00:00:00', '2024-06-01_00:00:00', '2024-06-01_00:00:00',
