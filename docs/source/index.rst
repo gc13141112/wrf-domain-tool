@@ -69,7 +69,6 @@ Here's an example that multiple domains' namelist.
 
 .. toctree::
    :maxdepth: 2
-   :caption: API Reference:
 
    intro
    installation
