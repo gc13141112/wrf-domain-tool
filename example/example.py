@@ -7,3 +7,4 @@ wrf = WRF.WRFDomain([
 wrf.load_shapefiles()
 wrf.compute_domain_params()
 wrf.write_namelist("namelist.wps")
+wrf.plot_domains()

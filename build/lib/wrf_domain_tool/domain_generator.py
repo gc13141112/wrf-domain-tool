@@ -1,7 +1,10 @@
 import geopandas as gpd
 from pathlib import Path
 from typing import List
-
+import matplotlib.pyplot as plt
+import cartopy.crs as ccrs
+from cartopy.feature import COASTLINE, BORDERS
+from matplotlib.patches import Rectangle
 class WRFDomain:
     """
     A class for calculating WRF nested domains from shapefiles and generating namelist.wps.
@@ -100,3 +103,49 @@ class WRFDomain:
             f.write(" truelat1 = 30.0,\n truelat2 = 60.0,\n stand_lon = " + str(self.domains[0]['center_lon']) + ",\n")
             f.write(" geog_data_res = " + ", ".join(["'default'"] * len(self.domains)) + ",\n")
             f.write(" geog_data_path = '/your/WPS_GEOG',\n/\n")
+    def plot_domains(self):
+        """Plot WRF nested domains using Lambert Conformal projection (LCC)."""
+        # 获取参考点用于设置投影中心
+        ref_lat = self.domains[0]["center_lat"]
+        ref_lon = self.domains[0]["center_lon"]
+
+        proj = ccrs.LambertConformal(
+            central_longitude=ref_lon,
+            central_latitude=ref_lat,
+            standard_parallels=(30, 60)
+        )
+
+        fig, ax = plt.subplots(figsize=(10, 8), subplot_kw={'projection': proj})
+        ax.set_title("WRF Nested Domains (Lambert Projection)")
+
+        for i, dom in enumerate(self.domains):
+            width_deg = dom["width_km"] / 111
+            height_deg = dom["height_km"] / 111
+            lower_left_lon = dom["center_lon"] - width_deg / 2
+            lower_left_lat = dom["center_lat"] - height_deg / 2
+
+            # 构建矩形四角
+            rect = Rectangle(
+                (lower_left_lon, lower_left_lat),
+                width_deg,
+                height_deg,
+                edgecolor=f"C{i}",
+                linewidth=2,
+                facecolor='none',
+                transform=ccrs.PlateCarree(),
+                label=f"Domain {i+1}"
+            )
+            ax.add_patch(rect)
+
+            # 中心点
+            ax.plot(dom["center_lon"], dom["center_lat"], marker="x", color=f"C{i}",
+                    transform=ccrs.PlateCarree())
+            ax.text(dom["center_lon"], dom["center_lat"], f"D{i+1}",
+                    transform=ccrs.PlateCarree(), fontsize=12, ha="center", va="center")
+
+        ax.add_feature(COASTLINE)
+        ax.add_feature(BORDERS, linestyle=':')
+
+        ax.legend()
+        ax.gridlines(draw_labels=True)
+        plt.savefig('test.jpg',dpi = 200, bbox_inches ='tight')
