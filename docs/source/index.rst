@@ -70,6 +70,7 @@ Here's an example that multiple domains' namelist.
 .. toctree::
    :maxdepth: 2
 
+   intro
    installation
 
 Indices and tables
