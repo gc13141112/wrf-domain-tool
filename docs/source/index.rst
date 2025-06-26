@@ -72,6 +72,7 @@ Here's an example that multiple domains' namelist.
 
    intro
    installation
+   wrftool
 
 Indices and tables
 ==================
