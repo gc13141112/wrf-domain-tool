@@ -17,11 +17,20 @@ class WRFDomain:
         domains (List[dict]): Computed domain parameters.
     """
 
-    def __init__(self, shapefiles: List[str], dx_base=27000, ratios=[1, 3, 3]):
-        assert len(shapefiles) == len(ratios), "Each shapefile must have a corresponding nesting ratio."
+    def __init__(self, shapefiles: List[str], dx_base: float = None, ratios: List[int] = None):
         self.shapefiles = shapefiles
-        self.dx_base = dx_base
-        self.ratios = ratios
+
+        if dx_base is None:
+            self.dx_base = 27000
+        else:
+            self.dx_base = dx_base
+
+        if ratios is None:
+            self.ratios = [1] + [3] * (len(shapefiles) - 1)
+        else:
+            assert len(ratios) == len(shapefiles), "Each shapefile must have a corresponding nesting ratio."
+            self.ratios = ratios
+
         self.domains = []
 
     def load_shapefiles(self):
@@ -134,6 +143,14 @@ class WRFDomain:
             gdf.plot(ax=ax, facecolor='none', edgecolor='gray', linewidth=0.6)
 
             gdf = gpd.read_file('https://geo.datav.aliyun.com/areas_v3/bound/510000.json')
+            gdf = gdf.to_crs(lcc_proj.proj4_init)
+            gdf.plot(ax=ax, facecolor='none', edgecolor='gray', linewidth=0.6)
+
+            gdf = gpd.read_file('https://geo.datav.aliyun.com/areas_v3/bound/410000.json')
+            gdf = gdf.to_crs(lcc_proj.proj4_init)
+            gdf.plot(ax=ax, facecolor='none', edgecolor='gray', linewidth=0.6)
+
+            gdf = gpd.read_file('https://geo.datav.aliyun.com/areas_v3/bound/440000.json')
             gdf = gdf.to_crs(lcc_proj.proj4_init)
             gdf.plot(ax=ax, facecolor='none', edgecolor='gray', linewidth=0.6)
         except Exception as e:

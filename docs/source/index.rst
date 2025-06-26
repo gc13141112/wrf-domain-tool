@@ -30,6 +30,34 @@ Here's an example program that plots the nest domain.
       wrf.compute_domain_params()
       wrf.write_namelist("namelist.wps")
       wrf.plot_domains()
+..code:: python
+   &share
+   max_dom = 7,
+   start_date = '2024-06-01_00:00:00', '2024-06-01_00:00:00', '2024-06-01_00:00:00', '2024-06-01_00:00:00',
+   end_date   = '2024-06-02_00:00:00', '2024-06-02_00:00:00', '2024-06-02_00:00:00', '2024-06-02_00:00:00',
+   interval_seconds = 21600,
+   io_form_geogrid = 2,
+   /
+
+   &geogrid
+   parent_id            = 1, 1, 2, 1, 3, 1, 4
+   parent_grid_ratio    = 1, 3, 3, 3, 3, 3, 3
+   i_parent_start       = 1, 91, 61, 136, 28, 138, 33
+   j_parent_start       = 1, 36, 47, 61, 31, 18, 14
+   e_we                 = 235, 124, 88, 73, 64, 103, 73
+   e_sn                 = 160, 121, 91, 70, 64, 67, 64
+   dx = 27000.0,
+   dy = 27000.0,
+   map_proj = 'lambert',
+   ref_lat = 28.480215434999998,
+   ref_lon = 104.2990125,
+   truelat1 = 30.0,
+   truelat2 = 60.0,
+   stand_lon = 104.2990125,
+   geog_data_res = 'default', 'default', 'default', 'default',
+   geog_data_path ='/home/gaochao/model/software/geog/geog/'
+   /
+
 
 .. toctree::
    :maxdepth: 2
