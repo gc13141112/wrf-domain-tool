@@ -11,7 +11,7 @@ Useful Links
 ------------
 - `WRF public site <https://www2.mmm.ucar.edu/wrf/users/>`_
 - `Wetland example <https://forum.mmm.ucar.edu/threads/temporal-changing-surface-fields-tidal-wetlands.10595/>`_
-- `landcover process <https://github.com/gc13141112/coupledreview/tree/master/landcover/>`_
+- `landcover and LAI process in MEGAN <https://github.com/gc13141112/coupledreview/tree/master/landcover/>`_
 
 
 The WRF Domain Tool, together with a shapefile, allows us to plot the WRF domain.
