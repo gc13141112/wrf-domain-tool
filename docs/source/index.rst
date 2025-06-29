@@ -15,6 +15,7 @@ Useful Links
 - `MOD15_User_Guide_V61 <https://lpdaac.usgs.gov/documents/926/MOD15_User_Guide_V61.pdf>`_
 - `satellite data website <https://e4ftl01.cr.usgs.gov/MOTA/>`_
 - `GEE for python <https://github.com/gc13141112/coupledreview/tree/master/gee/>`_
+- `Batch GEE for WRF <https://github.com/gc13141112/coupledreview/tree/master/gee/>`_
 
 The WRF Domain Tool, together with a shapefile, allows us to plot the WRF domain.
 
