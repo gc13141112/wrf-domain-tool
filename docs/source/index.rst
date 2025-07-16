@@ -76,6 +76,7 @@ Here's an example that multiple domains' namelist.
    intro
    installation
    wrftool
+   BVOC_SOA_ARCI
 
 Indices and tables
 ==================
